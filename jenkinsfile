@@ -46,7 +46,6 @@ pipeline {
                     sh "docker container rm java-app || true"
                     sh "docker run -d -p 8080:8080 --name java-app mariohany98/java-app:${IMAGE_NAME}"
                     sh "docker ps"
-                    }
                 }
             }
         }
