@@ -61,7 +61,7 @@ pipeline {
                         sh "git remote set-url origin https://${USER}:${PASS}@github.com/mariohany98/Complete-CI-CD-pipeline-for-Java-app.git"
                         sh 'git add .'
                         sh 'git commit -m "ci"'
-                        sh 'git push origin HEAD:master'
+                        sh 'git push origin HEAD:main'
                     }
                 }
             }
