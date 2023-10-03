@@ -5,6 +5,9 @@ pipeline {
     tools {
         maven 'Maven'
     }
+    environment {
+        GITHUB_TOKEN = credentials('git-token')
+    }
     stages {
         stage('increment version') {
             steps {
@@ -52,16 +55,14 @@ pipeline {
         stage('commit version update') {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'github-credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-                        // git config here for the first time run
-                        sh 'git config --global user.email "mariohany98@gmail.com"'
-                        sh 'git config --global user.name "mariohany98"'
+                    // git config here for the first time run
+                    sh 'git config --global user.email "mariohany98@gmail.com"'
+                    sh 'git config --global user.name "mariohany98"'
 
-                        sh "git remote set-url origin https://${USER}:${PASS}@github.com/mariohany98/Complete-CI-CD-pipeline-for-Java-app.git"
-                        sh 'git add .'
-                        sh 'git commit -m "ci"'
-                        sh 'git push origin HEAD:main'
-                    }
+                    sh "git remote set-url origin https://${GITHUB_TOKEN}@github.com/mariohany98/Complete-CI-CD-pipeline-for-Java-app.git"
+                    sh 'git add .'
+                    sh 'git commit -m "ci"'
+                    sh 'git push origin HEAD:main'
                 }
             }
         }
